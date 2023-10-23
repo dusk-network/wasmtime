@@ -92,6 +92,18 @@ impl RuntimeLinearMemory for LinearMemoryProxy {
             current_length: self.mem.byte_size().into(),
         }
     }
+
+    fn needs_init(&self) -> bool {
+        self.mem.needs_init()
+    }
+
+    fn as_any_mut(&mut self) -> &mut dyn std::any::Any {
+        self
+    }
+
+    fn wasm_accessible(&self) -> Range<usize> {
+        self.mem.wasm_accessible()
+    }
 }
 
 #[derive(Clone)]
