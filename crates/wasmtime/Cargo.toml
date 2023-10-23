@@ -1,11 +1,11 @@
 [package]
-name = "wasmtime"
+name = "dusk-wasmtime"
 version.workspace = true
 authors.workspace = true
 description = "High-level API to expose the Wasmtime runtime"
-documentation = "https://docs.rs/wasmtime"
+documentation = "https://docs.rs/dusk-wasmtime"
 license = "Apache-2.0 WITH LLVM-exception"
-repository = "https://github.com/bytecodealliance/wasmtime"
+repository = "https://github.com/dusk-network/wasmtime"
 readme = "README.md"
 edition.workspace = true
 rust-version.workspace = true
