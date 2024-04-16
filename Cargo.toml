@@ -110,6 +110,7 @@ members = [
   "cranelift/serde",
   "crates/bench-api",
   "crates/c-api/artifact",
+  "crates/cranelift-winch",
   "crates/environ/fuzz",
   "crates/test-programs",
   "crates/wasi-preview1-component-adapter",
@@ -159,6 +160,7 @@ wasmtime-cache = { path = "crates/cache", version = "=19.0.2" }
 wasmtime-cli-flags = { path = "crates/cli-flags", version = "=19.0.2" }
 wasmtime-cranelift = { path = "crates/cranelift", version = "=19.0.2" }
 wasmtime-cranelift-shared = { path = "crates/cranelift-shared", version = "=19.0.2" }
+wasmtime-cranelift-winch = { path = "crates/cranelift", version = "=19.0.2", package = "dusk-wasmtime-cranelift-winch" }
 wasmtime-winch = { path = "crates/winch", version = "=19.0.2" }
 wasmtime-environ = { path = "crates/environ", version = "=19.0.2" }
 wasmtime-explorer = { path = "crates/explorer", version = "=19.0.2" }

@@ -1055,6 +1055,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "dusk-wasmtime-cranelift-winch"
+version = "19.0.2"
+dependencies = [
+ "anyhow",
+ "cfg-if",
+ "cranelift-codegen",
+ "cranelift-control",
+ "cranelift-entity",
+ "cranelift-frontend",
+ "cranelift-native",
+ "cranelift-wasm",
+ "gimli",
+ "log",
+ "object",
+ "target-lexicon",
+ "thiserror",
+ "wasmparser",
+ "wasmtime-cranelift-shared",
+ "wasmtime-environ",
+ "wasmtime-versioned-export-macros",
+ "winch-codegen",
+]
+
+[[package]]
 name = "egg"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"

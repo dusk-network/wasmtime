@@ -1,0 +1,43 @@
+[package]
+name = "dusk-wasmtime-cranelift-winch"
+description = "Either Cranelift or Winch compiler for Wasmtime"
+license = "Apache-2.0 WITH LLVM-exception"
+repository = "https://github.com/bytecodealliance/wasmtime"
+documentation = "https://docs.rs/wasmtime-cranelift/"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+categories = ["wasm"]
+keywords = ["webassembly", "wasm"]
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = { workspace = true }
+log = { workspace = true }
+wasmtime-environ = { workspace = true }
+cranelift-wasm = { workspace = true }
+cranelift-codegen = { workspace = true, features = ["host-arch"] }
+winch-codegen = { workspace = true }
+cranelift-frontend = { workspace = true }
+cranelift-entity = { workspace = true }
+cranelift-native = { workspace = true }
+cranelift-control = { workspace = true }
+wasmtime-cranelift-shared = { workspace = true }
+wasmparser = { workspace = true }
+target-lexicon = { workspace = true }
+gimli = { workspace = true }
+object = { workspace = true, features = ['write'] }
+thiserror = { workspace = true }
+cfg-if = { workspace = true }
+wasmtime-versioned-export-macros = { workspace = true }
+
+
+[features]
+component-model = ["wasmtime-environ/component-model"]
+all-arch = ["cranelift-codegen/all-arch", "winch-codegen/all-arch"]
+host-arch = ["cranelift-codegen/host-arch"]
+incremental-cache = ["cranelift-codegen/incremental-cache"]
+wmemcheck = []
+gc = ["wasmtime-environ/gc"]
