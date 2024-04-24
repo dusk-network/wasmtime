@@ -28,7 +28,7 @@ wasmtime-wit-bindgen = { workspace = true }
 wit-parser = { workspace = true }
 
 [dev-dependencies]
-wasmtime = { path = '../wasmtime', features = ['component-model'] }
+wasmtime = { path = '../wasmtime', package = "dusk-wasmtime", features = ['component-model'] }
 component-macro-test-helpers = { path = 'test-helpers' }
 tracing = { workspace = true }
 
