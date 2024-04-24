@@ -536,8 +536,8 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "arbitrary",
+ "dusk-wasmtime",
  "env_logger",
- "wasmtime",
 ]
 
 [[package]]
@@ -1026,6 +1026,52 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9ea835d29036a4087793836fa931b08837ad5e957da9e23886b29586fb9b6650"
 
 [[package]]
+name = "dusk-wasmtime"
+version = "20.0.0"
+dependencies = [
+ "addr2line",
+ "anyhow",
+ "async-trait",
+ "bincode",
+ "bumpalo",
+ "cfg-if",
+ "encoding_rs",
+ "fxprof-processed-profile",
+ "gimli",
+ "indexmap 2.0.0",
+ "ittapi",
+ "libc",
+ "log",
+ "object 0.33.0",
+ "once_cell",
+ "paste",
+ "rayon",
+ "rustix",
+ "semver",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "target-lexicon",
+ "tempfile",
+ "wasi-common",
+ "wasm-encoder 0.202.0",
+ "wasmparser 0.202.0",
+ "wasmtime-cache",
+ "wasmtime-component-macro",
+ "wasmtime-component-util",
+ "wasmtime-cranelift",
+ "wasmtime-environ",
+ "wasmtime-fiber",
+ "wasmtime-jit-debug",
+ "wasmtime-jit-icache-coherence",
+ "wasmtime-runtime",
+ "wasmtime-slab",
+ "wasmtime-winch",
+ "wat",
+ "windows-sys 0.52.0",
+]
+
+[[package]]
 name = "egg"
 version = "0.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1051,7 +1097,7 @@ version = "20.0.0"
 dependencies = [
  "anyhow",
  "dlmalloc",
- "wasmtime",
+ "dusk-wasmtime",
 ]
 
 [[package]]
@@ -3146,6 +3192,7 @@ dependencies = [
  "cap-rand",
  "cap-std",
  "cap-time-ext",
+ "dusk-wasmtime",
  "fs-set-times",
  "io-extras",
  "io-lifetimes",
@@ -3162,7 +3209,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "wasi-common",
- "wasmtime",
  "wiggle",
  "windows-sys 0.52.0",
 ]
@@ -3401,52 +3447,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "wasmtime"
-version = "20.0.0"
-dependencies = [
- "addr2line",
- "anyhow",
- "async-trait",
- "bincode",
- "bumpalo",
- "cfg-if",
- "encoding_rs",
- "fxprof-processed-profile",
- "gimli",
- "indexmap 2.0.0",
- "ittapi",
- "libc",
- "log",
- "object 0.33.0",
- "once_cell",
- "paste",
- "rayon",
- "rustix",
- "semver",
- "serde",
- "serde_derive",
- "serde_json",
- "target-lexicon",
- "tempfile",
- "wasi-common",
- "wasm-encoder 0.202.0",
- "wasmparser 0.202.0",
- "wasmtime-cache",
- "wasmtime-component-macro",
- "wasmtime-component-util",
- "wasmtime-cranelift",
- "wasmtime-environ",
- "wasmtime-fiber",
- "wasmtime-jit-debug",
- "wasmtime-jit-icache-coherence",
- "wasmtime-runtime",
- "wasmtime-slab",
- "wasmtime-winch",
- "wat",
- "windows-sys 0.52.0",
-]
-
-[[package]]
 name = "wasmtime-asm-macros"
 version = "20.0.0"
 dependencies = [
@@ -3460,10 +3460,10 @@ dependencies = [
  "anyhow",
  "cap-std",
  "clap",
+ "dusk-wasmtime",
  "shuffling-allocator",
  "target-lexicon",
  "wasi-common",
- "wasmtime",
  "wasmtime-cli-flags",
  "wasmtime-wasi-nn",
  "wat",
@@ -3482,13 +3482,13 @@ version = "20.0.0"
 dependencies = [
  "anyhow",
  "cap-std",
+ "dusk-wasmtime",
  "env_logger",
  "futures",
  "log",
  "once_cell",
  "tokio",
  "tracing",
- "wasmtime",
  "wasmtime-c-api-macros",
  "wasmtime-wasi",
  "wat",
@@ -3542,6 +3542,7 @@ dependencies = [
  "cranelift-filetests",
  "cranelift-reader",
  "criterion",
+ "dusk-wasmtime",
  "env_logger",
  "filecheck",
  "http",
@@ -3571,7 +3572,6 @@ dependencies = [
  "walkdir",
  "wasi-common",
  "wasmparser 0.202.0",
- "wasmtime",
  "wasmtime-cache",
  "wasmtime-cli-flags",
  "wasmtime-component-util",
@@ -3596,11 +3596,11 @@ version = "20.0.0"
 dependencies = [
  "anyhow",
  "clap",
+ "dusk-wasmtime",
  "file-per-thread-logger",
  "humantime",
  "rayon",
  "tracing-subscriber",
- "wasmtime",
 ]
 
 [[package]]
@@ -3609,11 +3609,11 @@ version = "20.0.0"
 dependencies = [
  "anyhow",
  "component-macro-test-helpers",
+ "dusk-wasmtime",
  "proc-macro2",
  "quote",
  "syn 2.0.32",
  "tracing",
- "wasmtime",
  "wasmtime-component-util",
  "wasmtime-wit-bindgen",
  "wit-parser 0.202.0",
@@ -3692,12 +3692,12 @@ version = "20.0.0"
 dependencies = [
  "anyhow",
  "capstone",
+ "dusk-wasmtime",
  "serde",
  "serde_derive",
  "serde_json",
  "target-lexicon",
  "wasmprinter",
- "wasmtime",
 ]
 
 [[package]]
@@ -3730,6 +3730,7 @@ dependencies = [
  "cranelift-native",
  "cranelift-reader",
  "cranelift-wasm",
+ "dusk-wasmtime",
  "libfuzzer-sys",
  "once_cell",
  "proc-macro2",
@@ -3738,7 +3739,6 @@ dependencies = [
  "smallvec",
  "target-lexicon",
  "wasmparser 0.202.0",
- "wasmtime",
  "wasmtime-fuzzing",
 ]
 
@@ -3750,6 +3750,7 @@ dependencies = [
  "arbitrary",
  "component-fuzz-util",
  "component-test-util",
+ "dusk-wasmtime",
  "env_logger",
  "log",
  "rand",
@@ -3764,7 +3765,6 @@ dependencies = [
  "wasmi",
  "wasmparser 0.202.0",
  "wasmprinter",
- "wasmtime",
  "wasmtime-wast",
  "wat",
 ]
@@ -3857,6 +3857,7 @@ dependencies = [
  "cap-rand",
  "cap-std",
  "cap-time-ext",
+ "dusk-wasmtime",
  "fs-set-times",
  "futures",
  "io-extras",
@@ -3872,7 +3873,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "url",
- "wasmtime",
  "wiggle",
  "windows-sys 0.52.0",
 ]
@@ -3885,6 +3885,7 @@ dependencies = [
  "async-trait",
  "base64",
  "bytes",
+ "dusk-wasmtime",
  "futures",
  "http",
  "http-body",
@@ -3898,7 +3899,6 @@ dependencies = [
  "tokio-rustls",
  "tracing",
  "tracing-subscriber",
- "wasmtime",
  "wasmtime-wasi",
  "webpki-roots",
 ]
@@ -3909,6 +3909,7 @@ version = "20.0.0"
 dependencies = [
  "anyhow",
  "cap-std",
+ "dusk-wasmtime",
  "openvino",
  "ort",
  "test-programs-artifacts",
@@ -3916,7 +3917,6 @@ dependencies = [
  "tracing",
  "walkdir",
  "wasi-common",
- "wasmtime",
  "wiggle",
  "windows",
 ]
@@ -3926,10 +3926,10 @@ name = "wasmtime-wasi-threads"
 version = "20.0.0"
 dependencies = [
  "anyhow",
+ "dusk-wasmtime",
  "log",
  "rand",
  "wasi-common",
- "wasmtime",
 ]
 
 [[package]]
@@ -3937,8 +3937,8 @@ name = "wasmtime-wast"
 version = "20.0.0"
 dependencies = [
  "anyhow",
+ "dusk-wasmtime",
  "log",
- "wasmtime",
  "wast 202.0.0",
 ]
 
@@ -4041,11 +4041,11 @@ dependencies = [
  "anyhow",
  "async-trait",
  "bitflags 2.4.1",
+ "dusk-wasmtime",
  "proptest",
  "thiserror",
  "tokio",
  "tracing",
- "wasmtime",
  "wiggle-macro",
  "wiggle-test",
  "witx",
