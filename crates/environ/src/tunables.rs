@@ -3,6 +3,7 @@ use anyhow::{anyhow, bail, Result};
 use core::fmt;
 use serde_derive::{Deserialize, Serialize};
 use target_lexicon::{PointerWidth, Triple};
+use wasmparser::Operator;
 
 macro_rules! define_tunables {
     (
@@ -68,6 +69,9 @@ define_tunables! {
 
         /// The size, in bytes, of the guard page region for linear memories.
         pub memory_guard_size: u64,
+        
+        /// The cost of each operator. If fuel is not enabled, this is ignored.
+        pub operator_cost: OperatorCost,
 
         /// The size, in bytes, to allocate at the end of a relocated linear
         /// memory for growth.
@@ -181,6 +185,7 @@ impl Tunables {
             generate_native_debuginfo: false,
             parse_wasm_debuginfo: true,
             consume_fuel: false,
+            operator_cost: OperatorCost::new(),
             epoch_interruption: false,
             memory_may_move: true,
             guard_before_linear_memory: true,
@@ -210,7 +215,7 @@ impl Tunables {
     }
 
     /// Returns the default set of tunables for running under a 64-bit host.
-    pub const fn default_u64() -> Tunables {
+    pub fn default_u64() -> Tunables {
         Tunables {
             // 64-bit has tons of address space to static memories can have 4gb
             // address space reservations liberally by default, allowing us to
@@ -267,3 +272,80 @@ impl fmt::Display for Collector {
         }
     }
 }
+
+macro_rules! default_cost {
+    // Nop and drop generate no code, so don't consume fuel for them.
+    (Nop) => {
+        0
+    };
+    (Drop) => {
+        0
+    };
+
+    // Control flow may create branches, but is generally cheap and
+    // free, so don't consume fuel.
+    (Block) => {
+        0
+    };
+    (Loop) => {
+        0
+    };
+    (Unreachable) => {
+        0
+    };
+    (Return) => {
+        0
+    };
+    (Else) => {
+        0
+    };
+    (End) => {
+        0
+    };
+
+    // Everything else, just call it one operation.
+    ($op:ident) => {
+        1
+    };
+}
+
+use paste::paste;
+
+macro_rules! define_operator_cost {
+    ($(@$proposal:ident $op:ident $({ $($arg:ident: $argty:ty),* })? => $visit:ident ($($ann:tt)*) )*) => {
+        paste! {
+            /// The fuel cost of each operator.
+            #[derive(Clone, Copy, Hash, Serialize, Deserialize, Debug)]
+            #[allow(missing_docs, non_snake_case)]
+            pub struct OperatorCost {
+                $(
+                    pub $op: i64,
+                )*
+            }
+
+            impl OperatorCost {
+                /// Returns the cost of the given operator.
+                pub fn cost(&self, op: &Operator) -> i64 {
+                    match op {
+                        $(
+                            Operator::$op $({ $($arg: [<_ $arg>]),* })? => self.$op,
+                        )*
+                        _ => panic!("unknown op"),
+                    }
+                }
+            }
+            
+            impl OperatorCost {
+                const fn new() -> Self {
+                    Self {
+                        $(
+                            $op: default_cost!($op),
+                        )*
+                    }
+                }
+            }
+        }
+    }
+}
+
+wasmparser::for_each_operator!(define_operator_cost);
