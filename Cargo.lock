@@ -3659,6 +3659,7 @@ dependencies = [
  "indexmap 2.0.0",
  "log",
  "object 0.33.0",
+ "paste",
  "rustc-demangle",
  "serde",
  "serde_derive",

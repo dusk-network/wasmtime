@@ -10,6 +10,7 @@ use target_lexicon::Architecture;
 use wasmparser::WasmFeatures;
 #[cfg(feature = "cache")]
 use wasmtime_cache::CacheConfig;
+pub use wasmtime_environ::OperatorCost;
 use wasmtime_environ::Tunables;
 
 #[cfg(feature = "runtime")]
@@ -144,6 +145,7 @@ struct ConfigTunables {
     generate_native_debuginfo: Option<bool>,
     parse_wasm_debuginfo: Option<bool>,
     consume_fuel: Option<bool>,
+    operator_cost: Option<OperatorCost>,
     epoch_interruption: Option<bool>,
     static_memory_bound_is_maximum: Option<bool>,
     guard_before_linear_memory: Option<bool>,
@@ -519,6 +521,14 @@ impl Config {
     /// [`Store`]: crate::Store
     pub fn consume_fuel(&mut self, enable: bool) -> &mut Self {
         self.tunables.consume_fuel = Some(enable);
+        self
+    }
+
+    /// Configures the cost of each operator in WebAssembly, in "fuel units".
+    ///
+    /// This is only relevant when [`Config::consume_fuel`] is enabled.
+    pub fn operator_cost(&mut self, cost: OperatorCost) -> &mut Self {
+        self.tunables.operator_cost = Some(cost);
         self
     }
 
@@ -1725,6 +1735,7 @@ impl Config {
             generate_native_debuginfo
             parse_wasm_debuginfo
             consume_fuel
+            operator_cost
             epoch_interruption
             static_memory_bound_is_maximum
             guard_before_linear_memory
