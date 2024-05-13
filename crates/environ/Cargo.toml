@@ -21,6 +21,7 @@ cranelift-entity = { workspace = true }
 wasmtime-types = { workspace = true }
 wasmparser = { workspace = true }
 indexmap = { workspace = true, features = ["serde"] }
+paste = "1.0.3"
 thiserror = { workspace = true }
 serde = { workspace = true }
 serde_derive = { workspace = true }
