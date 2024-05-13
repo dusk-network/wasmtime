@@ -1035,6 +1035,8 @@ dependencies = [
  "bincode",
  "bumpalo",
  "cfg-if",
+ "dusk-wasmtime-cranelift",
+ "dusk-wasmtime-environ",
  "encoding_rs",
  "fxprof-processed-profile",
  "gimli",
@@ -1059,8 +1061,6 @@ dependencies = [
  "wasmtime-cache",
  "wasmtime-component-macro",
  "wasmtime-component-util",
- "wasmtime-cranelift",
- "wasmtime-environ",
  "wasmtime-fiber",
  "wasmtime-jit-debug",
  "wasmtime-jit-icache-coherence",
@@ -1069,6 +1069,56 @@ dependencies = [
  "wasmtime-winch",
  "wat",
  "windows-sys 0.52.0",
+]
+
+[[package]]
+name = "dusk-wasmtime-cranelift"
+version = "20.0.0"
+dependencies = [
+ "anyhow",
+ "cfg-if",
+ "cranelift-codegen",
+ "cranelift-control",
+ "cranelift-entity",
+ "cranelift-frontend",
+ "cranelift-native",
+ "cranelift-wasm",
+ "dusk-wasmtime-environ",
+ "gimli",
+ "log",
+ "object 0.33.0",
+ "target-lexicon",
+ "thiserror",
+ "wasmparser 0.202.0",
+ "wasmtime-versioned-export-macros",
+]
+
+[[package]]
+name = "dusk-wasmtime-environ"
+version = "20.0.0"
+dependencies = [
+ "anyhow",
+ "bincode",
+ "clap",
+ "cpp_demangle",
+ "cranelift-entity",
+ "env_logger",
+ "gimli",
+ "indexmap 2.0.0",
+ "log",
+ "object 0.33.0",
+ "paste",
+ "rustc-demangle",
+ "serde",
+ "serde_derive",
+ "target-lexicon",
+ "thiserror",
+ "wasm-encoder 0.202.0",
+ "wasmparser 0.202.0",
+ "wasmprinter",
+ "wasmtime-component-util",
+ "wasmtime-types",
+ "wat",
 ]
 
 [[package]]
@@ -3543,6 +3593,8 @@ dependencies = [
  "cranelift-reader",
  "criterion",
  "dusk-wasmtime",
+ "dusk-wasmtime-cranelift",
+ "dusk-wasmtime-environ",
  "env_logger",
  "filecheck",
  "http",
@@ -3575,8 +3627,6 @@ dependencies = [
  "wasmtime-cache",
  "wasmtime-cli-flags",
  "wasmtime-component-util",
- "wasmtime-cranelift",
- "wasmtime-environ",
  "wasmtime-explorer",
  "wasmtime-runtime",
  "wasmtime-wasi",
@@ -3624,66 +3674,16 @@ name = "wasmtime-component-util"
 version = "20.0.0"
 
 [[package]]
-name = "wasmtime-cranelift"
-version = "20.0.0"
-dependencies = [
- "anyhow",
- "cfg-if",
- "cranelift-codegen",
- "cranelift-control",
- "cranelift-entity",
- "cranelift-frontend",
- "cranelift-native",
- "cranelift-wasm",
- "gimli",
- "log",
- "object 0.33.0",
- "target-lexicon",
- "thiserror",
- "wasmparser 0.202.0",
- "wasmtime-environ",
- "wasmtime-versioned-export-macros",
-]
-
-[[package]]
-name = "wasmtime-environ"
-version = "20.0.0"
-dependencies = [
- "anyhow",
- "bincode",
- "clap",
- "cpp_demangle",
- "cranelift-entity",
- "env_logger",
- "gimli",
- "indexmap 2.0.0",
- "log",
- "object 0.33.0",
- "paste",
- "rustc-demangle",
- "serde",
- "serde_derive",
- "target-lexicon",
- "thiserror",
- "wasm-encoder 0.202.0",
- "wasmparser 0.202.0",
- "wasmprinter",
- "wasmtime-component-util",
- "wasmtime-types",
- "wat",
-]
-
-[[package]]
 name = "wasmtime-environ-fuzz"
 version = "0.0.0"
 dependencies = [
  "arbitrary",
  "component-fuzz-util",
+ "dusk-wasmtime-environ",
  "env_logger",
  "libfuzzer-sys",
  "wasmparser 0.202.0",
  "wasmprinter",
- "wasmtime-environ",
  "wat",
 ]
 
@@ -3796,6 +3796,7 @@ dependencies = [
  "anyhow",
  "cc",
  "cfg-if",
+ "dusk-wasmtime-environ",
  "encoding_rs",
  "indexmap 2.0.0",
  "libc",
@@ -3812,7 +3813,6 @@ dependencies = [
  "sptr",
  "wasm-encoder 0.202.0",
  "wasmtime-asm-macros",
- "wasmtime-environ",
  "wasmtime-fiber",
  "wasmtime-jit-debug",
  "wasmtime-slab",
@@ -3949,12 +3949,12 @@ version = "20.0.0"
 dependencies = [
  "anyhow",
  "cranelift-codegen",
+ "dusk-wasmtime-cranelift",
+ "dusk-wasmtime-environ",
  "gimli",
  "object 0.33.0",
  "target-lexicon",
  "wasmparser 0.202.0",
- "wasmtime-cranelift",
- "wasmtime-environ",
  "winch-codegen",
 ]
 
@@ -4126,13 +4126,13 @@ version = "0.18.0"
 dependencies = [
  "anyhow",
  "cranelift-codegen",
+ "dusk-wasmtime-cranelift",
+ "dusk-wasmtime-environ",
  "gimli",
  "regalloc2",
  "smallvec",
  "target-lexicon",
  "wasmparser 0.202.0",
- "wasmtime-cranelift",
- "wasmtime-environ",
 ]
 
 [[package]]

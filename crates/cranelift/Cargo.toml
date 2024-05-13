@@ -1,5 +1,5 @@
 [package]
-name = "wasmtime-cranelift"
+name = "dusk-wasmtime-cranelift"
 version.workspace = true
 authors.workspace = true
 description = "Integration between Cranelift and Wasmtime"

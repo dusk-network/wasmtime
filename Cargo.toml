@@ -163,9 +163,9 @@ wasmtime = { path = "crates/wasmtime", package = "dusk-wasmtime", version = "20.
 wasmtime-c-api-macros = { path = "crates/c-api-macros", version = "=20.0.0" }
 wasmtime-cache = { path = "crates/cache", version = "=20.0.0" }
 wasmtime-cli-flags = { path = "crates/cli-flags", version = "=20.0.0" }
-wasmtime-cranelift = { path = "crates/cranelift", version = "=20.0.0" }
+wasmtime-cranelift = { path = "crates/cranelift", package = "dusk-wasmtime-cranelift", version = "=20.0.0" }
 wasmtime-winch = { path = "crates/winch", version = "=20.0.0" }
-wasmtime-environ = { path = "crates/environ", version = "=20.0.0" }
+wasmtime-environ = { path = "crates/environ", package = "dusk-wasmtime-environ", version = "=20.0.0" }
 wasmtime-explorer = { path = "crates/explorer", version = "=20.0.0" }
 wasmtime-fiber = { path = "crates/fiber", version = "=20.0.0" }
 wasmtime-types = { path = "crates/types", version = "20.0.0" }
