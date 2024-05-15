@@ -1,6 +1,6 @@
 [package]
 name = "dusk-wasmtime-cranelift"
-version.workspace = true
+version = "21.0.0-alpha"
 authors.workspace = true
 description = "Integration between Cranelift and Wasmtime"
 license = "Apache-2.0 WITH LLVM-exception"

@@ -1,6 +1,6 @@
 [package]
 name = "dusk-wasmtime-environ"
-version.workspace = true
+version = "21.0.0-alpha"
 authors.workspace = true
 description = "Standalone environment support for WebAsssembly code in Cranelift"
 license = "Apache-2.0 WITH LLVM-exception"

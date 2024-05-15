@@ -1,6 +1,6 @@
 [package]
 name = "dusk-wasmtime"
-version.workspace = true
+version = "21.0.0-alpha"
 authors.workspace = true
 description = "High-level API to expose the Wasmtime runtime"
 documentation = "https://docs.rs/wasmtime"
