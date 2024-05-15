@@ -14,7 +14,7 @@ use quote::ToTokens;
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 fn version(value: impl std::fmt::Display) -> String {
-    format!("{}_{}", value, VERSION.replace('.', "_"))
+    format!("{}_{}", value, VERSION.replace('.', "_").replace('-', "_"))
 }
 
 fn versioned_lit_str(value: impl std::fmt::Display) -> syn::LitStr {
