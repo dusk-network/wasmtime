@@ -91,6 +91,10 @@ impl RuntimeLinearMemory for LinearMemoryProxy {
     fn base(&self) -> MemoryBase {
         MemoryBase::new_raw(self.mem.as_ptr())
     }
+
+    fn needs_init(&self) -> bool {
+        self.mem.needs_init()
+    }
 }
 
 #[derive(Clone)]
