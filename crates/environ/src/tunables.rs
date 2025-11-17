@@ -1,8 +1,10 @@
 use crate::{IndexType, Limits, Memory, TripleExt};
 use anyhow::{anyhow, bail, Result};
+use paste::paste;
 use core::fmt;
 use serde_derive::{Deserialize, Serialize};
 use target_lexicon::{PointerWidth, Triple};
+use wasmparser::Operator;
 
 macro_rules! define_tunables {
     (
@@ -82,6 +84,9 @@ define_tunables! {
         /// Whether or not fuel is enabled for generated code, meaning that fuel
         /// will be consumed every time a wasm instruction is executed.
         pub consume_fuel: bool,
+
+        /// The cost of each operator. If fuel is not enabled, this is ignored.
+        pub operator_cost: OperatorCost,
 
         /// Whether or not we use epoch-based interruption.
         pub epoch_interruption: bool,
@@ -181,6 +186,7 @@ impl Tunables {
             generate_native_debuginfo: false,
             parse_wasm_debuginfo: true,
             consume_fuel: false,
+            operator_cost: OperatorCost::new(),
             epoch_interruption: false,
             memory_may_move: true,
             guard_before_linear_memory: true,
@@ -267,3 +273,77 @@ impl fmt::Display for Collector {
         }
     }
 }
+
+
+macro_rules! default_cost {
+    // Nop and drop generate no code, so don't consume fuel for them.
+    (Nop) => {
+        0
+    };
+    (Drop) => {
+        0
+    };
+
+    // Control flow may create branches, but is generally cheap and
+    // free, so don't consume fuel.
+    (Block) => {
+        0
+    };
+    (Loop) => {
+        0
+    };
+    (Unreachable) => {
+        0
+    };
+    (Return) => {
+        0
+    };
+    (Else) => {
+        0
+    };
+    (End) => {
+        0
+    };
+
+    // Everything else, just call it one operation.
+    ($op:ident) => {
+        1
+    };
+}
+
+macro_rules! define_operator_cost {
+    ($(@$proposal:ident $op:ident $({ $($arg:ident: $argty:ty),* })? => $visit:ident ($($ann:tt)) )*) => {
+        paste! {
+            /// The fuel cost of each operator.
+            #[derive(Clone, Copy, Hash, Serialize, Deserialize, Debug)]
+            #[allow(missing_docs, non_snake_case)]
+            pub struct OperatorCost {
+                $(
+                    pub $op: i64,
+                )*
+            }
+
+            impl OperatorCost {
+                /// Returns the cost of the given operator.
+                pub fn cost(&self, op: &Operator) -> i64 {
+                    match op {
+                        $(
+                            Operator::$op $({ $($arg: [<_ $arg>]),* })? => self.$op,
+                        )*
+                        _ => panic!("unhandled operator"),
+                    }
+                }
+            
+            const fn new() -> Self {
+                Self {
+                    $(
+                        $op: default_cost!($op),
+                    )*
+                }
+            }
+        }
+        }
+    }
+}
+
+wasmparser::for_each_operator!(define_operator_cost);

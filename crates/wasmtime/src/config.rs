@@ -30,6 +30,7 @@ pub use crate::runtime::code_memory::CustomCodeMemory;
 pub use wasmtime_cache::{Cache, CacheConfig};
 #[cfg(all(feature = "incremental-cache", feature = "cranelift"))]
 pub use wasmtime_environ::CacheStore;
+pub use wasmtime_environ::OperatorCost;
 
 /// Represents the module instance allocation strategy to use.
 #[derive(Clone)]
@@ -552,6 +553,14 @@ impl Config {
     /// [`Store`]: crate::Store
     pub fn consume_fuel(&mut self, enable: bool) -> &mut Self {
         self.tunables.consume_fuel = Some(enable);
+        self
+    }
+
+    /// Configures the cost of each operator in WebAssembly, in "fuel units".
+    ///
+    /// This is only relevant when [`Config::consume_fuel`] is enabled.
+    pub fn operator_cost(&mut self, cost: OperatorCost) -> &mut Self {
+        self.tunables.operator_cost = Some(cost);
         self
     }
 

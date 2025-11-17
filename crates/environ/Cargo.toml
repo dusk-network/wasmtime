@@ -25,6 +25,7 @@ cranelift-entity = { workspace = true, features = ['enable-serde'] }
 cranelift-bitset = { workspace = true, features = ['enable-serde'] }
 wasmparser = { workspace = true, features = ['validate', 'serde', 'features'] }
 indexmap = { workspace = true, features = ["serde"] }
+paste = "1.0.3"
 serde = { workspace = true }
 serde_derive = { workspace = true }
 log = { workspace = true }

@@ -4455,6 +4455,7 @@ dependencies = [
  "indexmap 2.7.0",
  "log",
  "object",
+ "paste",
  "postcard",
  "rustc-demangle",
  "semver",
