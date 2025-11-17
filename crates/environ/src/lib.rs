@@ -7,6 +7,8 @@
 //! If you don't already know what this crate is you probably want to use
 //! `wasmtime`, not this crate.
 
+#![feature(precise_capturing)]
+
 #![deny(missing_docs)]
 #![warn(clippy::cast_sign_loss)]
 #![no_std]

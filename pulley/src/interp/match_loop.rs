@@ -32,6 +32,7 @@ impl Interpreter<'_> {
             match decoder.decode_one(&mut visitor) {
                 Ok(ControlFlow::Continue(())) => {}
                 Ok(ControlFlow::Break(done)) => break done,
+                Err(_) => unreachable!("this wasn't here"),
             }
         }
     }

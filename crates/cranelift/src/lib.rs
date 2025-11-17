@@ -3,6 +3,8 @@
 //! This crate provides an implementation of the `wasmtime_environ::Compiler`
 //! and `wasmtime_environ::CompilerBuilder` traits.
 
+#![feature(precise_capturing)]
+
 // See documentation in crates/wasmtime/src/runtime.rs for why this is
 // selectively enabled here.
 #![warn(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
