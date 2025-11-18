@@ -334,9 +334,10 @@ macro_rules! define_operator_cost {
                     }
                 }
             }
-            
+
             impl OperatorCost {
-                const fn new() -> Self {
+                /// Creates a new `OperatorCost` with default costs for each op
+                pub const fn new() -> Self {
                     Self {
                         $(
                             $op: default_cost!($op),

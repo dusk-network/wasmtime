@@ -314,6 +314,7 @@ pub(crate) mod prelude {
     pub use wasmtime_environ::OperatorCost;
 }
 
+pub use prelude::OperatorCost;
 pub(crate) use hashbrown::{hash_map, hash_set};
 
 /// A helper macro to safely map `MaybeUninit<T>` to `MaybeUninit<U>` where `U`
