@@ -180,6 +180,11 @@ pub trait RuntimeLinearMemory: Send + Sync {
         let _ = len;
         panic!("CoW images used with this memory and it doesn't support it");
     }
+    
+    /// Adding this to avoid reinitializing already initialized memory
+    fn needs_init(&self) -> bool {
+        true
+    }
 }
 
 /// The base pointer of a memory allocation.
@@ -713,10 +718,19 @@ impl LocalMemory {
     }
 
     pub fn needs_init(&self) -> bool {
-        match &self.memory_image {
+        let needs = match &self.memory_image {
             Some(image) => !image.has_image(),
             None => true,
+        };
+        // If the needs init is already false, use the original.
+        if !needs {
+            return false;
         }
+        // If not, use the fallback to initialize memory.
+        // We only need this to prevent memory from getting reinitialized
+        // during module instantiation.
+        // The memory image stuff seems to never be used in our case.
+        self.alloc.needs_init()
     }
 
     pub fn wasm_accessible(&self) -> Range<usize> {

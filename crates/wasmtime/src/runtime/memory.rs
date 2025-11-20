@@ -699,6 +699,12 @@ pub unsafe trait LinearMemory: Send + Sync + 'static {
 
     /// Return the allocated memory as a mutable pointer to u8.
     fn as_ptr(&self) -> *mut u8;
+
+    /// Is this memory brand new and needs to be initialized with
+    /// data in the wasm data segments?
+    fn needs_init(&self) -> bool {
+        true
+    }
 }
 
 /// A memory creator. Can be used to provide a memory creator
