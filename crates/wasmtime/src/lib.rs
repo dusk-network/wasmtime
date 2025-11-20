@@ -277,6 +277,12 @@
 //!
 //! [manifest]: https://github.com/bytecodealliance/wasmtime/blob/main/crates/wasmtime/Cargo.toml
 
+#![feature(precise_capturing)]
+#![feature(unsafe_extern_blocks)]
+#![feature(raw_ref_op)]
+#![feature(is_none_or)]
+#![feature(exposed_provenance)]
+
 #![deny(missing_docs)]
 #![doc(test(attr(deny(warnings))))]
 #![doc(test(attr(allow(dead_code, unused_variables, unused_mut))))]
@@ -305,8 +311,10 @@ pub(crate) mod prelude {
     pub use crate::{Error, Result};
     pub use anyhow::{anyhow, bail, ensure, format_err, Context};
     pub use wasmtime_environ::prelude::*;
+    pub use wasmtime_environ::OperatorCost;
 }
 
+pub use prelude::OperatorCost;
 pub(crate) use hashbrown::{hash_map, hash_set};
 
 /// A helper macro to safely map `MaybeUninit<T>` to `MaybeUninit<U>` where `U`

@@ -31,7 +31,7 @@ use object::write::{Object, StandardSegment};
 use object::{read::elf::ElfFile64, FileFlags, Object as _, ObjectSection};
 use serde_derive::{Deserialize, Serialize};
 use wasmtime_environ::obj;
-use wasmtime_environ::{FlagValue, ObjectKind, Tunables};
+use wasmtime_environ::{FlagValue, ObjectKind, OperatorCost, Tunables};
 
 const VERSION: u8 = 0;
 
@@ -272,6 +272,31 @@ impl Metadata<'_> {
         );
     }
 
+    fn check_cost(consume_fuel: bool, found: &OperatorCost, expected: &OperatorCost) -> Result<()> {
+        if !consume_fuel {
+            return Ok(());
+        }
+
+        macro_rules! bail_when_different {
+            ($(@$proposal:ident $op:ident $({ $($arg:ident: $argty:ty),* })? => $visit:ident ($($ann:tt)*) )*) => {
+                $(
+                if found.$op != expected.$op {
+                    bail!(
+                        "Module was compiled with a cost of {} for opcode {}, but {} was found and fuel is enabled",
+                        found.$op,
+                        stringify!($op),
+                        expected.$op,
+                    );
+                }
+                )*
+            };
+        }
+
+        wasmparser::for_each_operator!(bail_when_different);
+
+        Ok(())
+    }
+
     fn check_tunables(&mut self, other: &Tunables) -> Result<()> {
         let Tunables {
             collector,
@@ -280,6 +305,7 @@ impl Metadata<'_> {
             generate_native_debuginfo,
             parse_wasm_debuginfo,
             consume_fuel,
+            ref operator_cost,
             epoch_interruption,
             memory_may_move,
             guard_before_linear_memory,
@@ -322,7 +348,10 @@ impl Metadata<'_> {
             other.parse_wasm_debuginfo,
             "WebAssembly backtrace support",
         )?;
+
         Self::check_bool(consume_fuel, other.consume_fuel, "fuel support")?;
+        Self::check_cost(other.consume_fuel, operator_cost, &other.operator_cost)?;
+
         Self::check_bool(
             epoch_interruption,
             other.epoch_interruption,

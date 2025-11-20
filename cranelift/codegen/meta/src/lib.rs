@@ -1,6 +1,8 @@
 //! This crate generates Rust sources for use by
 //! [`cranelift_codegen`](../cranelift_codegen/index.html).
 
+#![feature(precise_capturing)]
+
 use cranelift_srcgen::{error, Formatter, Language};
 use shared::Definitions;
 

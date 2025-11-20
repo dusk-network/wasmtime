@@ -1,5 +1,5 @@
 [package]
-name = "wasmtime-environ"
+name = "dusk-wasmtime-environ"
 version.workspace = true
 authors.workspace = true
 description = "Standalone environment support for WebAssembly code in Cranelift"
@@ -37,6 +37,7 @@ wasmprinter = { workspace = true, optional = true }
 wasmtime-component-util = { workspace = true, optional = true }
 semver = { workspace = true, optional = true, features = ['serde'] }
 smallvec = { workspace = true, features = ['serde'] }
+paste = "1.0.15"
 
 [dev-dependencies]
 clap = { workspace = true, features = ['default'] }

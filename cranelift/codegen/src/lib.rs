@@ -1,4 +1,7 @@
 //! Cranelift code generation library.
+#![feature(precise_capturing)]
+#![feature(const_mut_refs)]
+
 #![deny(missing_docs)]
 // Display feature requirements in the documentation when building on docs.rs
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]

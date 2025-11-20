@@ -1,5 +1,8 @@
 //! The pulley bytecode for fast interpreters.
 
+#![feature(precise_capturing)]
+#![feature(exposed_provenance)]
+
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]
 #![cfg_attr(pulley_tail_calls, feature(explicit_tail_calls))]
 #![cfg_attr(pulley_tail_calls, allow(incomplete_features, unstable_features))]
