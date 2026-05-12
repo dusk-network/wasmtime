@@ -12,11 +12,18 @@ mod not_for_windows {
         size: usize,
         guard_size: usize,
         used_wasm_bytes: usize,
+        needs_init: bool,
         glob_bytes_counter: Arc<Mutex<usize>>,
     }
 
     impl CustomMemory {
-        unsafe fn new(minimum: usize, maximum: usize, glob_counter: Arc<Mutex<usize>>) -> Self {
+        unsafe fn new(
+            minimum: usize,
+            maximum: usize,
+            glob_counter: Arc<Mutex<usize>>,
+            needs_init: bool,
+            initial_contents: &[(usize, Vec<u8>)],
+        ) -> Self {
             let page_size = rustix::param::page_size();
             let guard_size = page_size;
             let size = maximum + guard_size;
@@ -35,6 +42,16 @@ mod not_for_windows {
                 mprotect(mem, minimum, MprotectFlags::READ | MprotectFlags::WRITE)
                     .expect("mprotect failed");
             }
+            for (offset, bytes) in initial_contents {
+                assert!(offset + bytes.len() <= minimum);
+                unsafe {
+                    std::ptr::copy_nonoverlapping(
+                        bytes.as_ptr(),
+                        (mem as *mut u8).add(*offset),
+                        bytes.len(),
+                    );
+                }
+            }
             *glob_counter.lock().unwrap() += minimum;
 
             Self {
@@ -42,6 +59,7 @@ mod not_for_windows {
                 size,
                 guard_size,
                 used_wasm_bytes: minimum,
+                needs_init,
                 glob_bytes_counter: glob_counter,
             }
         }
@@ -80,11 +98,17 @@ mod not_for_windows {
         fn as_ptr(&self) -> *mut u8 {
             self.mem as *mut u8
         }
+
+        fn needs_init(&self) -> bool {
+            self.needs_init
+        }
     }
 
     struct CustomMemoryCreator {
         pub num_created_memories: Mutex<usize>,
         pub num_total_bytes: Arc<Mutex<usize>>,
+        pub needs_init: bool,
+        pub initial_contents: Vec<(usize, Vec<u8>)>,
     }
 
     impl CustomMemoryCreator {
@@ -92,6 +116,17 @@ mod not_for_windows {
             Self {
                 num_created_memories: Mutex::new(0),
                 num_total_bytes: Arc::new(Mutex::new(0)),
+                needs_init: true,
+                initial_contents: Vec::new(),
+            }
+        }
+
+        pub fn preinitialized(initial_contents: Vec<(usize, Vec<u8>)>) -> Self {
+            Self {
+                num_created_memories: Mutex::new(0),
+                num_total_bytes: Arc::new(Mutex::new(0)),
+                needs_init: false,
+                initial_contents,
             }
         }
     }
@@ -115,6 +150,8 @@ mod not_for_windows {
                     minimum,
                     maximum.unwrap_or(10 << 20),
                     self.num_total_bytes.clone(),
+                    self.needs_init,
+                    &self.initial_contents,
                 ));
                 *self.num_created_memories.lock().unwrap() += 1;
                 Ok(mem)
@@ -122,14 +159,19 @@ mod not_for_windows {
         }
     }
 
-    fn config() -> (Store<()>, Arc<CustomMemoryCreator>) {
-        let mem_creator = Arc::new(CustomMemoryCreator::new());
+    fn store(mem_creator: Arc<CustomMemoryCreator>) -> Store<()> {
         let mut config = Config::new();
         config
             .with_host_memory(mem_creator.clone())
+            .memory_init_cow(false)
             .memory_reservation(0)
             .memory_guard_size(0);
-        (Store::new(&Engine::new(&config).unwrap(), ()), mem_creator)
+        Store::new(&Engine::new(&config).unwrap(), ())
+    }
+
+    fn config() -> (Store<()>, Arc<CustomMemoryCreator>) {
+        let mem_creator = Arc::new(CustomMemoryCreator::new());
+        (store(mem_creator.clone()), mem_creator)
     }
 
     #[test]
@@ -146,6 +188,60 @@ mod not_for_windows {
         Instance::new(&mut store, &module, &[])?;
 
         assert_eq!(*mem_creator.num_created_memories.lock().unwrap(), 1);
+
+        Ok(())
+    }
+
+    #[test]
+    fn host_memory_initializes_by_default() -> wasmtime::Result<()> {
+        let (mut store, _) = config();
+        let module = Module::new(
+            store.engine(),
+            r#"
+            (module
+                (memory (export "memory") 1)
+                (data (i32.const 8) "module")
+            )
+        "#,
+        )?;
+
+        let instance = Instance::new(&mut store, &module, &[])?;
+        let memory = instance.get_memory(&mut store, "memory").unwrap();
+
+        let mut initialized = [0; 6];
+        memory.read(&store, 8, &mut initialized).unwrap();
+        assert_eq!(&initialized, b"module");
+
+        let mut zero = [0xff; 1];
+        memory.read(&store, 0, &mut zero).unwrap();
+        assert_eq!(zero, [0]);
+
+        Ok(())
+    }
+
+    #[test]
+    fn host_memory_can_skip_initialization() -> wasmtime::Result<()> {
+        let mem_creator = Arc::new(CustomMemoryCreator::preinitialized(vec![(
+            8,
+            b"stored".to_vec(),
+        )]));
+        let mut store = store(mem_creator);
+        let module = Module::new(
+            store.engine(),
+            r#"
+            (module
+                (memory (export "memory") 1)
+                (data (i32.const 8) "module")
+            )
+        "#,
+        )?;
+
+        let instance = Instance::new(&mut store, &module, &[])?;
+        let memory = instance.get_memory(&mut store, "memory").unwrap();
+
+        let mut preserved = [0; 6];
+        memory.read(&store, 8, &mut preserved).unwrap();
+        assert_eq!(&preserved, b"stored");
 
         Ok(())
     }
