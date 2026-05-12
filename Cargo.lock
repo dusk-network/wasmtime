@@ -287,7 +287,7 @@ dependencies = [
 
 [[package]]
 name = "byte-array-literals"
-version = "44.0.1"
+version = "44.0.1-alpha"
 
 [[package]]
 name = "byteorder"
@@ -1190,7 +1190,7 @@ dependencies = [
 
 [[package]]
 name = "dusk-wasmtime"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "addr2line 0.26.0",
  "async-trait",
@@ -1251,7 +1251,7 @@ dependencies = [
 
 [[package]]
 name = "dusk-wasmtime-cranelift"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "cfg-if",
  "cranelift-codegen",
@@ -1276,7 +1276,7 @@ dependencies = [
 
 [[package]]
 name = "dusk-wasmtime-environ"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "anyhow",
  "arbitrary",
@@ -1352,7 +1352,7 @@ checksum = "edd0f118536f44f5ccd48bcb8b111bdc3de888b58c74639dfb034a357d0f206d"
 
 [[package]]
 name = "embedding"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "dlmalloc",
  "dusk-wasmtime",
@@ -2536,7 +2536,7 @@ dependencies = [
 
 [[package]]
 name = "min-platform-host"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "dusk-wasmtime",
  "libloading",
@@ -3000,7 +3000,7 @@ dependencies = [
 
 [[package]]
 name = "pulley-interpreter"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "anyhow",
  "arbitrary",
@@ -3024,7 +3024,7 @@ dependencies = [
 
 [[package]]
 name = "pulley-macros"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4331,7 +4331,7 @@ version = "0.1.0"
 
 [[package]]
 name = "verify-component-adapter"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "anyhow",
  "wasmparser 0.246.1",
@@ -4396,7 +4396,7 @@ dependencies = [
 
 [[package]]
 name = "wasi-common"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "async-trait",
  "bitflags 2.9.4",
@@ -4436,7 +4436,7 @@ dependencies = [
 
 [[package]]
 name = "wasi-preview1-component-adapter"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "bitflags 2.9.4",
  "byte-array-literals",
@@ -4713,7 +4713,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-bench-api"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "cap-std",
  "clap",
@@ -4728,14 +4728,14 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-c-api"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "wasmtime-c-api-impl",
 ]
 
 [[package]]
 name = "wasmtime-c-api-impl"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4755,7 +4755,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-cli"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4834,7 +4834,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-cli-flags"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "clap",
  "dusk-wasmtime",
@@ -4935,7 +4935,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-c-api-macros"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4943,7 +4943,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-cache"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "base64",
  "directories-next",
@@ -4964,7 +4964,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-component-macro"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "anyhow",
  "component-macro-test-helpers",
@@ -4984,11 +4984,11 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-component-util"
-version = "44.0.1"
+version = "44.0.1-alpha"
 
 [[package]]
 name = "wasmtime-internal-core"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "anyhow",
  "hashbrown 0.16.1",
@@ -4998,7 +4998,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-debugger"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "async-trait",
  "dusk-wasmtime",
@@ -5011,7 +5011,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-explorer"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "capstone",
  "dusk-wasmtime",
@@ -5025,7 +5025,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-fiber"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "backtrace",
  "cc",
@@ -5039,7 +5039,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-gdbstub-component"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "anyhow",
  "clap",
@@ -5055,11 +5055,11 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-gdbstub-component-artifact"
-version = "44.0.1"
+version = "44.0.1-alpha"
 
 [[package]]
 name = "wasmtime-internal-jit-debug"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "cc",
  "object 0.39.0",
@@ -5069,7 +5069,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-jit-icache-coherence"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "cfg-if",
  "libc",
@@ -5079,7 +5079,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-unwinder"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "cfg-if",
  "cranelift-codegen",
@@ -5090,7 +5090,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-versioned-export-macros"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -5099,7 +5099,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-winch"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "cranelift-codegen",
  "dusk-wasmtime-cranelift",
@@ -5114,7 +5114,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-wit-bindgen"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "anyhow",
  "bitflags 2.9.4",
@@ -5125,7 +5125,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-internal-wmemcheck"
-version = "44.0.1"
+version = "44.0.1-alpha"
 
 [[package]]
 name = "wasmtime-test-macros"
@@ -5140,7 +5140,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-test-util"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "arbitrary",
  "arbtest",
@@ -5163,7 +5163,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "async-trait",
  "bitflags 2.9.4",
@@ -5197,7 +5197,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-config"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "dusk-wasmtime",
  "test-programs-artifacts",
@@ -5207,7 +5207,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-http"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "async-trait",
  "base64",
@@ -5239,7 +5239,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-io"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5250,7 +5250,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-keyvalue"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "dusk-wasmtime",
  "test-programs-artifacts",
@@ -5260,7 +5260,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-nn"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "cap-std",
  "dusk-wasmtime",
@@ -5280,7 +5280,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-threads"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "dusk-wasmtime",
  "log",
@@ -5291,7 +5291,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-tls"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "bytes",
  "cfg-if",
@@ -5312,7 +5312,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wast"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "dusk-wasmtime",
  "json-from-wast",
@@ -5326,7 +5326,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wizer"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "clap",
  "criterion",
@@ -5406,7 +5406,7 @@ dependencies = [
 
 [[package]]
 name = "wiggle"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "bitflags 2.9.4",
  "dusk-wasmtime",
@@ -5422,7 +5422,7 @@ dependencies = [
 
 [[package]]
 name = "wiggle-generate"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "dusk-wasmtime-environ",
  "heck 0.5.0",
@@ -5434,7 +5434,7 @@ dependencies = [
 
 [[package]]
 name = "wiggle-macro"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -5489,7 +5489,7 @@ checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 
 [[package]]
 name = "winch-codegen"
-version = "44.0.1"
+version = "44.0.1-alpha"
 dependencies = [
  "cranelift-assembler-x64",
  "cranelift-codegen",

@@ -14,7 +14,12 @@ use quote::ToTokens;
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 fn version(value: impl std::fmt::Display) -> String {
-    format!("{}_{}", value, VERSION.replace('.', "_"))
+    let suffix = VERSION
+        .chars()
+        .map(|c| if c.is_ascii_alphanumeric() { c } else { '_' })
+        .collect::<String>();
+
+    format!("{value}_{suffix}")
 }
 
 fn versioned_lit_str(value: impl std::fmt::Display) -> syn::LitStr {
