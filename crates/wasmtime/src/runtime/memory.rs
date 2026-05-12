@@ -725,6 +725,16 @@ pub unsafe trait LinearMemory: Send + Sync + 'static {
 
     /// Return the allocated memory as a mutable pointer to u8.
     fn as_ptr(&self) -> *mut u8;
+
+    /// Returns whether Wasmtime should initialize this memory at instantiation.
+    ///
+    /// If this returns `true`, Wasmtime initializes linear memory normally,
+    /// including active data segments. If this returns `false`, Wasmtime assumes
+    /// the embedder has already initialized this memory with the complete
+    /// desired contents and skips that initialization.
+    fn needs_init(&self) -> bool {
+        true
+    }
 }
 
 /// A memory creator. Can be used to provide a memory creator

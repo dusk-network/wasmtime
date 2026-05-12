@@ -96,6 +96,10 @@ impl RuntimeLinearMemory for LinearMemoryProxy {
             current_length: self.mem.byte_size().into(),
         }
     }
+
+    fn needs_init(&self) -> bool {
+        self.mem.needs_init()
+    }
 }
 
 #[derive(Clone)]

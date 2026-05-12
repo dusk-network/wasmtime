@@ -180,6 +180,11 @@ pub trait RuntimeLinearMemory: Send + Sync {
     /// Get a `VMMemoryDefinition` for this linear memory.
     fn vmmemory(&self) -> VMMemoryDefinition;
 
+    /// Returns whether Wasmtime should initialize this memory at instantiation.
+    fn needs_init(&self) -> bool {
+        true
+    }
+
     /// Internal method for Wasmtime when used in conjunction with CoW images.
     /// This is used to inform the underlying memory that the size of memory has
     /// changed.
@@ -754,6 +759,10 @@ impl LocalMemory {
     }
 
     pub fn needs_init(&self) -> bool {
+        if !self.alloc.needs_init() {
+            return false;
+        }
+
         match &self.memory_image {
             Some(image) => !image.has_image(),
             None => true,
