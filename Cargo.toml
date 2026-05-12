@@ -247,9 +247,9 @@ extra_unused_type_parameters = 'warn'
 # tooling but aren't intended to be widely depended on.
 #
 # All of these crates are supported though in the sense that
-wasmtime = { path = "crates/wasmtime", version = "44.0.1", default-features = false }
+wasmtime = { path = "crates/wasmtime", package = "dusk-wasmtime", version = "44.0.1", default-features = false }
 wasmtime-cli-flags = { path = "crates/cli-flags", version = "=44.0.1" }
-wasmtime-environ = { path = "crates/environ", version = "=44.0.1" }
+wasmtime-environ = { path = "crates/environ", package = "dusk-wasmtime-environ", version = "=44.0.1" }
 wasmtime-wasi = { path = "crates/wasi", version = "44.0.1", default-features = false }
 wasmtime-wasi-io = { path = "crates/wasi-io", version = "44.0.1", default-features = false }
 wasmtime-wasi-http = { path = "crates/wasi-http", version = "44.0.1", default-features = false }
@@ -262,16 +262,17 @@ wasmtime-wast = { path = "crates/wast", version = "=44.0.1" }
 
 # Internal Wasmtime-specific crates.
 #
-# Note that all crates here are actually named `wasmtime-internal-*` as their
-# package name which is what will show up on crates.io. This is done to signal
-# that these are internal unsupported crates for external use. These exist as
-# part of the project organization of other public crates in Wasmtime and are
-# otherwise not supported in terms of CVEs for example.
+# Note that all crates here, except for Dusk-renamed crates, are actually named
+# `wasmtime-internal-*` as their package name which is what will show up on
+# crates.io. This is done to signal that these are internal unsupported crates
+# for external use. These exist as part of the project organization of other
+# public crates in Wasmtime and are otherwise not supported in terms of CVEs for
+# example.
 wasmtime-core = { path = "crates/core", version = "=44.0.1", package = 'wasmtime-internal-core' }
 wasmtime-wmemcheck = { path = "crates/wmemcheck", version = "=44.0.1", package = 'wasmtime-internal-wmemcheck' }
 wasmtime-c-api-macros = { path = "crates/c-api-macros", version = "=44.0.1", package = 'wasmtime-internal-c-api-macros' }
 wasmtime-cache = { path = "crates/cache", version = "=44.0.1", package = 'wasmtime-internal-cache' }
-wasmtime-cranelift = { path = "crates/cranelift", version = "=44.0.1", package = 'wasmtime-internal-cranelift' }
+wasmtime-cranelift = { path = "crates/cranelift", version = "=44.0.1", package = 'dusk-wasmtime-cranelift' }
 wasmtime-winch = { path = "crates/winch", version = "=44.0.1", package = 'wasmtime-internal-winch'  }
 wasmtime-explorer = { path = "crates/explorer", version = "=44.0.1", package = 'wasmtime-internal-explorer'  }
 wasmtime-fiber = { path = "crates/fiber", version = "=44.0.1", package = 'wasmtime-internal-fiber' }

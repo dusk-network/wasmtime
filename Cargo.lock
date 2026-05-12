@@ -333,7 +333,7 @@ name = "calculator"
 version = "0.1.0"
 dependencies = [
  "clap",
- "wasmtime",
+ "dusk-wasmtime",
  "wasmtime-wasi",
 ]
 
@@ -628,6 +628,7 @@ name = "component-async-tests"
 version = "0.0.0"
 dependencies = [
  "bytes",
+ "dusk-wasmtime",
  "env_logger 0.11.5",
  "futures",
  "once_cell",
@@ -636,7 +637,6 @@ dependencies = [
  "tokio",
  "wasm-compose",
  "wasmparser 0.246.1",
- "wasmtime",
  "wasmtime-wasi",
 ]
 
@@ -1189,6 +1189,126 @@ dependencies = [
 ]
 
 [[package]]
+name = "dusk-wasmtime"
+version = "44.0.1"
+dependencies = [
+ "addr2line 0.26.0",
+ "async-trait",
+ "bitflags 2.9.4",
+ "bumpalo",
+ "bytes",
+ "cc",
+ "cfg-if",
+ "cranelift-native",
+ "dusk-wasmtime-cranelift",
+ "dusk-wasmtime-environ",
+ "encoding_rs",
+ "env_logger 0.11.5",
+ "futures",
+ "fxprof-processed-profile",
+ "gimli 0.33.0",
+ "ittapi",
+ "libc",
+ "libtest-mimic",
+ "log",
+ "mach2",
+ "memfd",
+ "object 0.39.0",
+ "once_cell",
+ "postcard",
+ "proptest",
+ "pulley-interpreter",
+ "rand 0.9.2",
+ "rayon",
+ "rustix 1.0.8",
+ "semver",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "smallvec 1.15.1",
+ "target-lexicon",
+ "tempfile",
+ "tokio",
+ "wasm-compose",
+ "wasm-encoder 0.246.1",
+ "wasm-wave",
+ "wasmparser 0.246.1",
+ "wasmtime-internal-cache",
+ "wasmtime-internal-component-macro",
+ "wasmtime-internal-component-util",
+ "wasmtime-internal-core",
+ "wasmtime-internal-fiber",
+ "wasmtime-internal-jit-debug",
+ "wasmtime-internal-jit-icache-coherence",
+ "wasmtime-internal-unwinder",
+ "wasmtime-internal-versioned-export-macros",
+ "wasmtime-internal-winch",
+ "wasmtime-internal-wmemcheck",
+ "wasmtime-test-util",
+ "wat",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "dusk-wasmtime-cranelift"
+version = "44.0.1"
+dependencies = [
+ "cfg-if",
+ "cranelift-codegen",
+ "cranelift-control",
+ "cranelift-entity",
+ "cranelift-frontend",
+ "cranelift-native",
+ "dusk-wasmtime-environ",
+ "gimli 0.33.0",
+ "itertools 0.14.0",
+ "log",
+ "object 0.39.0",
+ "pulley-interpreter",
+ "smallvec 1.15.1",
+ "target-lexicon",
+ "thiserror 2.0.17",
+ "wasmparser 0.246.1",
+ "wasmtime-internal-core",
+ "wasmtime-internal-unwinder",
+ "wasmtime-internal-versioned-export-macros",
+]
+
+[[package]]
+name = "dusk-wasmtime-environ"
+version = "44.0.1"
+dependencies = [
+ "anyhow",
+ "arbitrary",
+ "arbtest",
+ "clap",
+ "cpp_demangle",
+ "cranelift-bforest",
+ "cranelift-bitset",
+ "cranelift-entity",
+ "env_logger 0.11.5",
+ "gimli 0.33.0",
+ "hashbrown 0.16.1",
+ "indexmap 2.13.0",
+ "log",
+ "object 0.39.0",
+ "postcard",
+ "rustc-demangle",
+ "semver",
+ "serde",
+ "serde_derive",
+ "sha2",
+ "smallvec 1.15.1",
+ "target-lexicon",
+ "wasm-encoder 0.246.1",
+ "wasmparser 0.246.1",
+ "wasmprinter",
+ "wasmtime-internal-component-util",
+ "wasmtime-internal-core",
+ "wat",
+]
+
+[[package]]
 name = "easy-smt"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1235,8 +1355,8 @@ name = "embedding"
 version = "44.0.1"
 dependencies = [
  "dlmalloc",
+ "dusk-wasmtime",
  "raw-cpuid",
- "wasmtime",
  "wasmtime-wasi-io",
 ]
 
@@ -2418,9 +2538,9 @@ dependencies = [
 name = "min-platform-host"
 version = "44.0.1"
 dependencies = [
+ "dusk-wasmtime",
  "libloading",
  "object 0.39.0",
- "wasmtime",
 ]
 
 [[package]]
@@ -3744,10 +3864,10 @@ name = "test-programs-artifacts"
 version = "0.0.0"
 dependencies = [
  "cargo_metadata",
+ "dusk-wasmtime",
  "heck 0.5.0",
  "serde",
  "serde_derive",
- "wasmtime",
  "wasmtime-test-util",
  "wat",
  "wit-component 0.246.1",
@@ -4284,6 +4404,8 @@ dependencies = [
  "cap-rand",
  "cap-std",
  "cap-time-ext",
+ "dusk-wasmtime",
+ "dusk-wasmtime-environ",
  "fs-set-times",
  "io-extras",
  "io-lifetimes",
@@ -4299,8 +4421,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "wasi-common",
- "wasmtime",
- "wasmtime-environ",
  "wiggle",
  "windows-sys 0.61.2",
 ]
@@ -4592,75 +4712,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "wasmtime"
-version = "44.0.1"
-dependencies = [
- "addr2line 0.26.0",
- "async-trait",
- "bitflags 2.9.4",
- "bumpalo",
- "bytes",
- "cc",
- "cfg-if",
- "cranelift-native",
- "encoding_rs",
- "env_logger 0.11.5",
- "futures",
- "fxprof-processed-profile",
- "gimli 0.33.0",
- "ittapi",
- "libc",
- "libtest-mimic",
- "log",
- "mach2",
- "memfd",
- "object 0.39.0",
- "once_cell",
- "postcard",
- "proptest",
- "pulley-interpreter",
- "rand 0.9.2",
- "rayon",
- "rustix 1.0.8",
- "semver",
- "serde",
- "serde_derive",
- "serde_json",
- "smallvec 1.15.1",
- "target-lexicon",
- "tempfile",
- "tokio",
- "wasm-compose",
- "wasm-encoder 0.246.1",
- "wasm-wave",
- "wasmparser 0.246.1",
- "wasmtime-environ",
- "wasmtime-internal-cache",
- "wasmtime-internal-component-macro",
- "wasmtime-internal-component-util",
- "wasmtime-internal-core",
- "wasmtime-internal-cranelift",
- "wasmtime-internal-fiber",
- "wasmtime-internal-jit-debug",
- "wasmtime-internal-jit-icache-coherence",
- "wasmtime-internal-unwinder",
- "wasmtime-internal-versioned-export-macros",
- "wasmtime-internal-winch",
- "wasmtime-internal-wmemcheck",
- "wasmtime-test-util",
- "wat",
- "windows-sys 0.61.2",
-]
-
-[[package]]
 name = "wasmtime-bench-api"
 version = "44.0.1"
 dependencies = [
  "cap-std",
  "clap",
+ "dusk-wasmtime",
  "shuffling-allocator",
  "target-lexicon",
- "wasmtime",
  "wasmtime-cli-flags",
  "wasmtime-wasi",
  "wasmtime-wasi-nn",
@@ -4681,12 +4740,12 @@ dependencies = [
  "async-trait",
  "bytes",
  "cap-std",
+ "dusk-wasmtime",
  "env_logger 0.11.5",
  "futures",
  "log",
  "tokio",
  "tracing",
- "wasmtime",
  "wasmtime-internal-c-api-macros",
  "wasmtime-wasi",
  "wasmtime-wasi-http",
@@ -4712,6 +4771,9 @@ dependencies = [
  "cranelift-native",
  "cranelift-reader",
  "criterion",
+ "dusk-wasmtime",
+ "dusk-wasmtime-cranelift",
+ "dusk-wasmtime-environ",
  "env_logger 0.11.5",
  "filecheck",
  "futures",
@@ -4746,12 +4808,9 @@ dependencies = [
  "wasi-common",
  "wasm-encoder 0.246.1",
  "wasmparser 0.246.1",
- "wasmtime",
  "wasmtime-cli-flags",
- "wasmtime-environ",
  "wasmtime-internal-cache",
  "wasmtime-internal-component-util",
- "wasmtime-internal-cranelift",
  "wasmtime-internal-debugger",
  "wasmtime-internal-explorer",
  "wasmtime-internal-gdbstub-component-artifact",
@@ -4778,47 +4837,13 @@ name = "wasmtime-cli-flags"
 version = "44.0.1"
 dependencies = [
  "clap",
+ "dusk-wasmtime",
  "file-per-thread-logger",
  "rayon",
  "serde",
  "serde_derive",
  "toml",
  "tracing-subscriber",
- "wasmtime",
-]
-
-[[package]]
-name = "wasmtime-environ"
-version = "44.0.1"
-dependencies = [
- "anyhow",
- "arbitrary",
- "arbtest",
- "clap",
- "cpp_demangle",
- "cranelift-bforest",
- "cranelift-bitset",
- "cranelift-entity",
- "env_logger 0.11.5",
- "gimli 0.33.0",
- "hashbrown 0.16.1",
- "indexmap 2.13.0",
- "log",
- "object 0.39.0",
- "postcard",
- "rustc-demangle",
- "semver",
- "serde",
- "serde_derive",
- "sha2",
- "smallvec 1.15.1",
- "target-lexicon",
- "wasm-encoder 0.246.1",
- "wasmparser 0.246.1",
- "wasmprinter",
- "wasmtime-internal-component-util",
- "wasmtime-internal-core",
- "wat",
 ]
 
 [[package]]
@@ -4826,11 +4851,11 @@ name = "wasmtime-environ-fuzz"
 version = "0.0.0"
 dependencies = [
  "arbitrary",
+ "dusk-wasmtime-environ",
  "env_logger 0.11.5",
  "libfuzzer-sys",
  "wasmparser 0.246.1",
  "wasmprinter",
- "wasmtime-environ",
  "wasmtime-test-util",
  "wat",
 ]
@@ -4849,6 +4874,7 @@ dependencies = [
  "cranelift-interpreter",
  "cranelift-native",
  "cranelift-reader",
+ "dusk-wasmtime",
  "env_logger 0.11.5",
  "libfuzzer-sys",
  "log",
@@ -4862,7 +4888,6 @@ dependencies = [
  "smallvec 1.15.1",
  "target-lexicon",
  "wasmparser 0.246.1",
- "wasmtime",
  "wasmtime-fuzzing",
  "wasmtime-test-util",
 ]
@@ -4875,6 +4900,8 @@ dependencies = [
  "backtrace",
  "cranelift-bforest",
  "cranelift-bitset",
+ "dusk-wasmtime",
+ "dusk-wasmtime-environ",
  "env_logger 0.11.5",
  "futures",
  "indexmap 2.13.0",
@@ -4898,9 +4925,7 @@ dependencies = [
  "wasmi",
  "wasmparser 0.246.1",
  "wasmprinter",
- "wasmtime",
  "wasmtime-cli-flags",
- "wasmtime-environ",
  "wasmtime-internal-core",
  "wasmtime-test-util",
  "wasmtime-wasi",
@@ -4922,6 +4947,7 @@ version = "44.0.1"
 dependencies = [
  "base64",
  "directories-next",
+ "dusk-wasmtime-environ",
  "env_logger 0.11.5",
  "filetime",
  "log",
@@ -4932,7 +4958,6 @@ dependencies = [
  "sha2",
  "tempfile",
  "toml",
- "wasmtime-environ",
  "windows-sys 0.61.2",
  "zstd 0.13.0",
 ]
@@ -4943,6 +4968,7 @@ version = "44.0.1"
 dependencies = [
  "anyhow",
  "component-macro-test-helpers",
+ "dusk-wasmtime",
  "prettyplease",
  "proc-macro2",
  "quote",
@@ -4951,7 +4977,6 @@ dependencies = [
  "similar",
  "syn 2.0.106",
  "tracing",
- "wasmtime",
  "wasmtime-internal-component-util",
  "wasmtime-internal-wit-bindgen",
  "wit-parser 0.246.1",
@@ -4972,39 +4997,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "wasmtime-internal-cranelift"
-version = "44.0.1"
-dependencies = [
- "cfg-if",
- "cranelift-codegen",
- "cranelift-control",
- "cranelift-entity",
- "cranelift-frontend",
- "cranelift-native",
- "gimli 0.33.0",
- "itertools 0.14.0",
- "log",
- "object 0.39.0",
- "pulley-interpreter",
- "smallvec 1.15.1",
- "target-lexicon",
- "thiserror 2.0.17",
- "wasmparser 0.246.1",
- "wasmtime-environ",
- "wasmtime-internal-core",
- "wasmtime-internal-unwinder",
- "wasmtime-internal-versioned-export-macros",
-]
-
-[[package]]
 name = "wasmtime-internal-debugger"
 version = "44.0.1"
 dependencies = [
  "async-trait",
+ "dusk-wasmtime",
  "env_logger 0.11.5",
  "log",
  "tokio",
- "wasmtime",
  "wasmtime-wasi",
  "wasmtime-wasi-io",
 ]
@@ -5014,13 +5014,13 @@ name = "wasmtime-internal-explorer"
 version = "44.0.1"
 dependencies = [
  "capstone",
+ "dusk-wasmtime",
+ "dusk-wasmtime-environ",
  "serde",
  "serde_derive",
  "serde_json",
  "target-lexicon",
  "wasmprinter",
- "wasmtime",
- "wasmtime-environ",
 ]
 
 [[package]]
@@ -5030,9 +5030,9 @@ dependencies = [
  "backtrace",
  "cc",
  "cfg-if",
+ "dusk-wasmtime-environ",
  "libc",
  "rustix 1.0.8",
- "wasmtime-environ",
  "wasmtime-internal-versioned-export-macros",
  "windows-sys 0.61.2",
 ]
@@ -5083,9 +5083,9 @@ version = "44.0.1"
 dependencies = [
  "cfg-if",
  "cranelift-codegen",
+ "dusk-wasmtime-environ",
  "log",
  "object 0.39.0",
- "wasmtime-environ",
 ]
 
 [[package]]
@@ -5102,13 +5102,13 @@ name = "wasmtime-internal-winch"
 version = "44.0.1"
 dependencies = [
  "cranelift-codegen",
+ "dusk-wasmtime-cranelift",
+ "dusk-wasmtime-environ",
  "gimli 0.33.0",
  "log",
  "object 0.39.0",
  "target-lexicon",
  "wasmparser 0.246.1",
- "wasmtime-environ",
- "wasmtime-internal-cranelift",
  "winch-codegen",
 ]
 
@@ -5144,6 +5144,8 @@ version = "44.0.1"
 dependencies = [
  "arbitrary",
  "arbtest",
+ "dusk-wasmtime",
+ "dusk-wasmtime-environ",
  "env_logger 0.11.5",
  "indexmap 2.13.0",
  "proc-macro2",
@@ -5155,8 +5157,6 @@ dependencies = [
  "toml",
  "wasmparser 0.246.1",
  "wasmprinter",
- "wasmtime",
- "wasmtime-environ",
  "wasmtime-internal-component-util",
  "wat",
 ]
@@ -5173,6 +5173,7 @@ dependencies = [
  "cap-rand",
  "cap-std",
  "cap-time-ext",
+ "dusk-wasmtime",
  "env_logger 0.11.5",
  "fs-set-times",
  "futures",
@@ -5188,7 +5189,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "url",
- "wasmtime",
  "wasmtime-test-util",
  "wasmtime-wasi-io",
  "wiggle",
@@ -5199,9 +5199,9 @@ dependencies = [
 name = "wasmtime-wasi-config"
 version = "44.0.1"
 dependencies = [
+ "dusk-wasmtime",
  "test-programs-artifacts",
  "tokio",
- "wasmtime",
  "wasmtime-wasi",
 ]
 
@@ -5212,6 +5212,7 @@ dependencies = [
  "async-trait",
  "base64",
  "bytes",
+ "dusk-wasmtime",
  "env_logger 0.11.5",
  "flate2",
  "futures",
@@ -5230,7 +5231,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "wasm-compose",
- "wasmtime",
  "wasmtime-wasi",
  "wasmtime-wasi-http",
  "wasmtime-wasi-io",
@@ -5243,18 +5243,18 @@ version = "44.0.1"
 dependencies = [
  "async-trait",
  "bytes",
+ "dusk-wasmtime",
  "futures",
  "tracing",
- "wasmtime",
 ]
 
 [[package]]
 name = "wasmtime-wasi-keyvalue"
 version = "44.0.1"
 dependencies = [
+ "dusk-wasmtime",
  "test-programs-artifacts",
  "tokio",
- "wasmtime",
  "wasmtime-wasi",
 ]
 
@@ -5263,6 +5263,7 @@ name = "wasmtime-wasi-nn"
 version = "44.0.1"
 dependencies = [
  "cap-std",
+ "dusk-wasmtime",
  "libtest-mimic",
  "openvino",
  "ort",
@@ -5272,7 +5273,6 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "walkdir",
- "wasmtime",
  "wasmtime-wasi",
  "wiggle",
  "windows",
@@ -5282,10 +5282,10 @@ dependencies = [
 name = "wasmtime-wasi-threads"
 version = "44.0.1"
 dependencies = [
+ "dusk-wasmtime",
  "log",
  "rand 0.8.5",
  "wasi-common",
- "wasmtime",
  "wasmtime-wasi",
 ]
 
@@ -5295,6 +5295,7 @@ version = "44.0.1"
 dependencies = [
  "bytes",
  "cfg-if",
+ "dusk-wasmtime",
  "futures",
  "native-tls",
  "openssl",
@@ -5305,7 +5306,6 @@ dependencies = [
  "tokio-openssl",
  "tokio-rustls",
  "tracing",
- "wasmtime",
  "wasmtime-wasi",
  "webpki-roots",
 ]
@@ -5314,13 +5314,13 @@ dependencies = [
 name = "wasmtime-wast"
 version = "44.0.1"
 dependencies = [
+ "dusk-wasmtime",
  "json-from-wast",
  "log",
  "object 0.39.0",
  "serde_json",
  "tokio",
  "wasmparser 0.246.1",
- "wasmtime",
  "wast 246.0.1",
 ]
 
@@ -5330,6 +5330,7 @@ version = "44.0.1"
 dependencies = [
  "clap",
  "criterion",
+ "dusk-wasmtime",
  "env_logger 0.11.5",
  "log",
  "rayon",
@@ -5337,7 +5338,6 @@ dependencies = [
  "wasm-encoder 0.246.1",
  "wasmparser 0.246.1",
  "wasmprinter",
- "wasmtime",
  "wasmtime-wasi",
  "wat",
 ]
@@ -5409,12 +5409,12 @@ name = "wiggle"
 version = "44.0.1"
 dependencies = [
  "bitflags 2.9.4",
+ "dusk-wasmtime",
+ "dusk-wasmtime-environ",
  "proptest",
  "thiserror 2.0.17",
  "tokio",
  "tracing",
- "wasmtime",
- "wasmtime-environ",
  "wiggle-macro",
  "wiggle-test",
  "witx",
@@ -5424,11 +5424,11 @@ dependencies = [
 name = "wiggle-generate"
 version = "44.0.1"
 dependencies = [
+ "dusk-wasmtime-environ",
  "heck 0.5.0",
  "proc-macro2",
  "quote",
  "syn 2.0.106",
- "wasmtime-environ",
  "witx",
 ]
 
@@ -5447,12 +5447,12 @@ dependencies = [
 name = "wiggle-test"
 version = "0.0.0"
 dependencies = [
+ "dusk-wasmtime",
  "env_logger 0.11.5",
  "proptest",
  "thiserror 2.0.17",
  "tracing",
  "tracing-subscriber",
- "wasmtime",
  "wiggle",
 ]
 
@@ -5493,15 +5493,15 @@ version = "44.0.1"
 dependencies = [
  "cranelift-assembler-x64",
  "cranelift-codegen",
+ "dusk-wasmtime-cranelift",
+ "dusk-wasmtime-environ",
  "gimli 0.33.0",
  "regalloc2",
  "smallvec 1.15.1",
  "target-lexicon",
  "thiserror 2.0.17",
  "wasmparser 0.246.1",
- "wasmtime-environ",
  "wasmtime-internal-core",
- "wasmtime-internal-cranelift",
 ]
 
 [[package]]
@@ -5894,12 +5894,12 @@ dependencies = [
 name = "wizer-fuzz"
 version = "0.0.0"
 dependencies = [
+ "dusk-wasmtime",
  "env_logger 0.11.5",
  "libfuzzer-sys",
  "log",
  "wasm-smith",
  "wasmprinter",
- "wasmtime",
  "wasmtime-wizer",
 ]
 
